@@ -21,5 +21,23 @@ export class ShowInspectionComponent implements OnInit {
   ngOnInit(): void
   {
     this.inspectionList$ = this.service.getInspectionList();
+    this.inspectionTypesList$ = this.service.getInspectionTypesList();
+    this.refreshInspectionTypesMap();
+  }
+
+  // Variables (properties)
+  modalTitle: string = '';
+  activateAddEditInspectionComponent: boolean = false;
+  inspection: any;
+
+  refreshInspectionTypesMap()
+  {
+    this.service.getInspectionTypesList().subscribe(data => {
+      this.inspectionTypesList = data;
+      for (let i = 0; i < data.length; i++)
+      {
+        this.inspectionTypesMap.set(this.inspectionTypesList[i].id, this.inspectionTypesList[i].inspectionName);
+      }
+    });
   }
 }
