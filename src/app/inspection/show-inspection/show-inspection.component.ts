@@ -65,4 +65,30 @@ export class ShowInspectionComponent implements OnInit {
       }
     });
   }
+
+  deleteInspection(item: any)
+  {
+    if (confirm(`Are you sure you want to delete inspection ${item.id}?`))
+    {
+      this.service.deleteInspection(item.id).subscribe(res => {
+        var closeModalBtn = document.getElementById('add-edit-modal-close');
+        if (closeModalBtn)
+        {
+          closeModalBtn.click();
+        }
+
+        var showDeleteSuccess = document.getElementById('delete-success-alert');
+        if (showDeleteSuccess)
+        {
+          showDeleteSuccess.style.display = "block";
+        }
+        setTimeout(function () {
+          if (showDeleteSuccess)
+          {
+            showDeleteSuccess.style.display = "none";
+          }
+        }, 4000);
+      });
+    }
+  }
 }
